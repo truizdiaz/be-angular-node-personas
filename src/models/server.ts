@@ -1,5 +1,6 @@
 import express, { Application } from 'express';
 import routesPersonas from '../routes/persona.routes';
+import connection from '../db/connection';
 
 class Server {
     private app: Application;
@@ -10,6 +11,7 @@ class Server {
         this.port = process.env.PORT || '4000';
         this.middlewares();
         this.routes();
+        this.conectarDB();
     }
 
     listen() {
@@ -26,6 +28,13 @@ class Server {
 
     routes() {
         this.app.use('/api/personas', routesPersonas);
+    }
+
+    conectarDB() {
+        connection.connect((err) => {
+            if(err) throw err;
+            console.log('Conectado a la base de datos')
+        })
     }
 
 }
