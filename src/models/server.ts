@@ -1,6 +1,7 @@
 import express, { Application } from 'express';
 import routesPersonas from '../routes/persona.routes';
 import connection from '../db/connection';
+import cors from 'cors';
 
 class Server {
     private app: Application;
@@ -24,6 +25,9 @@ class Server {
 
         // Parseo del body
         this.app.use(express.json());
+
+        // Cors
+        this.app.use(cors());
     }
 
     routes() {
